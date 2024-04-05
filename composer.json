@@ -1,0 +1,20 @@
+{
+    "name": "skynettechnologies/thelia-all-in-one-accessibility-module",
+    "license": "LGPL-3.0+",
+    "type": "thelia-module",
+    "keyword":[
+    "thelia",
+    "all in one accessibility"
+    ],
+    "authors":[
+    	{
+            "name":"Skynet Technologies"
+        }
+    ],
+    "require": {
+        "thelia/installer": "~1.1"
+    },
+    "extra": {
+        "installer-name": "AllInOneAccessibility"
+    }
+}
