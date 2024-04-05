@@ -131,7 +131,7 @@ Following features can be added as an addon
 Add it in your main thelia composer.json file
 
 ```
-composer require your-vendor/thelia-all-in-one-accessibility-module:~1.0
+composer require skynettechnologies/thelia-all-in-one-accessibility-module
 ```
 ### Configuration
 
@@ -139,9 +139,9 @@ After activating the module, you can configure its settings by clicking on the "
 
 ### Create your own template
 
-* 1. Create a js file
-* 2. Get allinoneaccessibilityTemplate variable
-* 3. Insert your js file in ```main.after-javascript-include``` hook
+* Create a js file
+* Get allinoneaccessibilityTemplate variable
+* Insert your js file in ```main.after-javascript-include``` hook
 
 ## Screenshots
 
