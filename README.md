@@ -34,7 +34,7 @@ You can install this module using Composer.
 Run the following command from your project root:
 
 ```
-composer require skynettechnologies/thelia-all-in-one-accessibility-module ~1.0.0
+composer require skynettechnologies/thelia-all-in-one-accessibility-module
 
 ```
 ### Configuration
