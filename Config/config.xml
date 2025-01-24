@@ -30,7 +30,7 @@
         </hook>
         <hook id="allinoneaccessibility.back.hook" class="AllInOneAccessibility\Hook\AioBackHook" scope="request">
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfig" />
-
+            <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfig" />
         </hook>
     </hooks>
 

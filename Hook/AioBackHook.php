@@ -25,6 +25,7 @@ class AioBackHook extends BaseHook
         public function onModuleConfig(HookRenderEvent $event)
         {
             $event->add($this->render("module_configuration.html"));
+            $event->add($this->addCSS("/assets/css/style.css"));
         }
 
 
