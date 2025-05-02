@@ -21,7 +21,8 @@ use Thelia\Core\Hook\BaseHook;
  * @package AllInOneAccessibility\Hook
  */
 class AioBackHook extends BaseHook
-{
+{ 
+        // add css files in backend side and render html file 
         public function onModuleConfig(HookRenderEvent $event)
         {
             $event->add($this->render("module_configuration.html"));

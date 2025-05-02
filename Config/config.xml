@@ -9,25 +9,20 @@
         <loop name="MySuperLoop" class="AllInOneAccessibility\Loop\MySuperLoop" />
         -->
     </loops>
-
-
-
     <commands>
         <!--
         <command class="AllInOneAccessibility\Command\MySuperCommand" />
         -->
     </commands>
 
-
-
-
-
     <hooks>
+    <!-- Fronted hook -->
         <hook id="allinoneaccessibility.hook" class="AllInOneAccessibility\Hook\AIOFrontHook" scope="request">
             <tag name="hook.event_listener" event="main.stylesheet" type="front" method="onMainStyleSheet" />
             <tag name="hook.event_listener" event="allinoneaccessibility.front.insertjs" type="front" method="onAllInOneAccessibilityinsertJS" />
             <tag name="hook.event_listener" event="main.after-javascript-include" type="front" method="onMainAfterJVSIncludes" />
         </hook>
+      <!-- Backend hook -->
         <hook id="allinoneaccessibility.back.hook" class="AllInOneAccessibility\Hook\AioBackHook" scope="request">
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfig" />
             <tag name="hook.event_listener" event="module.configuration" type="back" method="onModuleConfig" />

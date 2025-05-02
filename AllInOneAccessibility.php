@@ -46,8 +46,6 @@ class AllInOneAccessibility extends BaseModule
         // Handle case where no admin exists in the database
         error_log("No admin user found.");
     }
-
-
         //end user detail
          $websitename = $_SERVER['SERVER_NAME'];
 

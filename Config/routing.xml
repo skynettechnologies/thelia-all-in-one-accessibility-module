@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <!--
-
+ 
     if a /admin/module/allinoneaccessibility/ route is provided, a "Configuration" button will be displayed
     for the module in the module list. Clicking this button will invoke this route.
 

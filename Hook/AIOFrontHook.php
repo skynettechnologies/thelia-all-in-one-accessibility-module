@@ -49,13 +49,13 @@ class AIOFrontHook extends BaseHook
         }
     }
 
-    /**
+    /** 
      * @param HookRenderEvent $event
      */
     public function onAllInOneAccessibilityinsertJS(HookRenderEvent $event)
     {
+        // add js code in fronted side
         if (!AllInOneAccessibility::getConfigValue("all-in-one-accessibility-hook-all-page")) {
-
 
             $event->add($this->addJS("/assets/js/allinoneaccessibility_compiled.js"));
         }
