@@ -32,26 +32,14 @@ class AllInOneAccessibility extends BaseModule
      */
     public function postActivation(ConnectionInterface $con = null): void
     {
-        $admin = AdminQuery::create()
-        ->findOne(); // Fetch the first admin, or you can apply filters if necessary
+        // Use static values instead of fetching from Admin
+        $username = 'Dear Customer';
+        $userEmail = 'no-reply@thelia.com';
 
-    if ($admin) {
-        // Get admin details
-        $username = $admin->getUsername(); // Admin's username
-        $userEmail = $admin->getEmail(); // Admin's email
-
-        // Log the details for debugging purposes
-        error_log("Admin's username: " . $username . ", email: " . $userEmail);
-    } else {
-        // Handle case where no admin exists in the database
-        error_log("No admin user found.");
-    }
-        //end user detail
-         $websitename = $_SERVER['SERVER_NAME'];
-
+        $websitename = $_SERVER['SERVER_NAME'];
         $packageType = "free-widget";
-            
-        // Array of details to send
+
+        // Prepare payload for add-user-domain
         $arrDetails = array(
             'name' => $username,
             'email' => $userEmail,
@@ -62,7 +50,7 @@ class AllInOneAccessibility extends BaseModule
             'end_date' => '',
             'price' => '',
             'discount_price' => '0',
-            'platform' => 'Craft',
+            'platform' => 'Thelia',
             'api_key' => '',
             'is_trial_period' => '',
             'is_free_widget' => '1',
@@ -75,75 +63,40 @@ class AllInOneAccessibility extends BaseModule
             'subscr_id' => '',
             'payment_source' => ''
         );
-        
-        // First API URL to fetch autologin link
-        $apiUrl = "https://ada.skynettechnologies.us/api/get-autologin-link";
-        
-        // Set up cURL for the first API request
-        $ch = curl_init($apiUrl);
+        // Directly call add-user-domain API
+        $secondApiUrl = "https://ada.skynettechnologies.us/api/add-user-domain";
+        $ch = curl_init($secondApiUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['website' => base64_encode($websitename)]));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrDetails));
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json'
         ));
-        
-        // Execute the request and get the response
+
         $response = curl_exec($ch);
-        if(curl_errno($ch)) {
-          
+        if (curl_errno($ch)) {
+            error_log('cURL error: ' . curl_error($ch));
         }
         curl_close($ch);
-        
-        // Decode the response to check if the link is present
-        $result = json_decode($response, true);
-        if (isset($result['link'])) {
-            // Successfully got the link
-        
-            
-        } else {
-            // Link not found, proceed with second API call
-          
-        
-            // Second API URL to add user domain
-            $secondApiUrl = "https://ada.skynettechnologies.us/api/add-user-domain";
-        
-            // Set up cURL for the second API request
-            $ch = curl_init($secondApiUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($arrDetails));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json'
-            ));
-        
-            // Execute the second request and get the response
-            $response = curl_exec($ch);
-            if(curl_errno($ch)) {
-             
-               
-            }
-            curl_close($ch);
-        
-            // Decode the second response to handle the result
-            $data = json_decode($response, true);
-            
-           
-         }
 
-        //end user
+        $data = json_decode($response, true);
+        // Optional: Handle response if needed
+
+        // Configuration fallback
         if (ConfigQuery::read("all-in-one-accessibility-hook-all-page")) {
             AllInOneAccessibility::setConfigValue("all-in-one-accessibility-hook-all-page", ConfigQuery::read("all-in-one-accessibility-hook-all-page"));
         } elseif (!AllInOneAccessibility::getConfigValue("all-in-one-accessibility-hook-all-page")) {
             AllInOneAccessibility::setConfigValue("all-in-one-accessibility-hook-all-page", false);
         }
+
         if (ConfigQuery::read(AllInOneAccessibility::CONF_API_KEY)) {
             AllInOneAccessibility::setConfigValue(AllInOneAccessibility::CONF_API_KEY, ConfigQuery::read(AllInOneAccessibility::CONF_API_KEY));
         }
     }
 
 
-    public function getHooks()
+
+    public function getHooks(): array
     {
         return [
             [
